@@ -1,0 +1,40 @@
+diff -uNr llvm-7.0.0.src/include/llvm/Support/ARMTargetParser.def llvm-7.0.0.src.patched/include/llvm/Support/ARMTargetParser.def
+--- llvm-7.0.0.src/include/llvm/Support/ARMTargetParser.def	2018-07-02 09:38:37.000000000 -0600
++++ llvm-7.0.0.src.patched/include/llvm/Support/ARMTargetParser.def	2018-11-06 22:42:18.460904108 -0700
+@@ -75,7 +75,7 @@
+ ARM_ARCH("armv6-m", ARMV6M, "6-M", "v6m", ARMBuildAttrs::CPUArch::v6_M,
+           FK_NONE, ARM::AEK_NONE)
+ ARM_ARCH("armv7-a", ARMV7A, "7-A", "v7", ARMBuildAttrs::CPUArch::v7,
+-          FK_NEON, ARM::AEK_DSP)
++          FK_NONE, ARM::AEK_DSP)
+ ARM_ARCH("armv7ve", ARMV7VE, "7VE", "v7ve", ARMBuildAttrs::CPUArch::v7,
+           FK_NEON, (ARM::AEK_SEC | ARM::AEK_MP | ARM::AEK_VIRT |
+           ARM::AEK_HWDIVARM | ARM::AEK_HWDIVTHUMB | ARM::AEK_DSP))
+@@ -219,7 +219,7 @@
+              (ARM::AEK_SEC | ARM::AEK_MP | ARM::AEK_VIRT | ARM::AEK_HWDIVARM |
+               ARM::AEK_HWDIVTHUMB))
+ ARM_CPU_NAME("cortex-a8", ARMV7A, FK_NEON, false, ARM::AEK_SEC)
+-ARM_CPU_NAME("cortex-a9", ARMV7A, FK_NEON_FP16, false, (ARM::AEK_SEC | ARM::AEK_MP))
++ARM_CPU_NAME("cortex-a9", ARMV7A, FK_NONE, false, (ARM::AEK_SEC | ARM::AEK_MP))
+ ARM_CPU_NAME("cortex-a12", ARMV7A, FK_NEON_VFPV4, false,
+              (ARM::AEK_SEC | ARM::AEK_MP | ARM::AEK_VIRT | ARM::AEK_HWDIVARM |
+               ARM::AEK_HWDIVTHUMB))
+diff -uNr llvm-7.0.0.src/lib/Target/ARM/ARM.td llvm-7.0.0.src.patched/lib/Target/ARM/ARM.td
+--- llvm-7.0.0.src/lib/Target/ARM/ARM.td	2018-07-27 12:16:47.000000000 -0600
++++ llvm-7.0.0.src.patched/lib/Target/ARM/ARM.td	2018-11-06 22:44:20.839015712 -0700
+@@ -558,7 +558,6 @@
+                                                        FeatureStrictAlign]>;
+ 
+ def ARMv7a    : Architecture<"armv7-a",   "ARMv7a",   [HasV7Ops,
+-                                                       FeatureNEON,
+                                                        FeatureDB,
+                                                        FeatureDSP,
+                                                        FeatureAClass]>;
+@@ -815,7 +814,6 @@
+                                                          FeatureExpandMLx,
+                                                          FeaturePreferVMOVSR,
+                                                          FeatureMuxedUnits,
+-                                                         FeatureNEONForFPMovs,
+                                                          FeatureCheckVLDnAlign,
+                                                          FeatureMP]>;
+ 

@@ -1,0 +1,31 @@
+diff -ruN retroarch-v1.7.3_orig/gfx/drivers/sdl_gfx.c retroarch-v1.7.3/gfx/drivers/sdl_gfx.c
+--- retroarch-v1.7.3_orig/gfx/drivers/sdl_gfx.c	2018-05-03 21:45:22.000000000 -0600
++++ retroarch-v1.7.3/gfx/drivers/sdl_gfx.c	2018-11-17 22:38:40.012476123 -0700
+@@ -361,13 +361,6 @@
+          height,
+          pitch);
+ 
+-#ifdef HAVE_MENU
+-   menu_driver_frame(video_info);
+-#endif
+-
+-   if (vid->menu.active)
+-      SDL_BlitSurface(vid->menu.frame, NULL, vid->screen, NULL);
+-
+    if (msg)
+       sdl_render_msg(vid, vid->screen,
+             msg, vid->screen->w, vid->screen->h, vid->screen->format);
+@@ -375,6 +368,13 @@
+    if (SDL_MUSTLOCK(vid->screen))
+       SDL_UnlockSurface(vid->screen);
+ 
++#ifdef HAVE_MENU
++   menu_driver_frame(video_info);
++#endif
++
++   if (vid->menu.active)
++      SDL_BlitSurface(vid->menu.frame, NULL, vid->screen, NULL);
++
+    if (title[0])
+       SDL_WM_SetCaption(title, NULL);
+ 
