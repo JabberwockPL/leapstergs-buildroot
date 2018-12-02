@@ -4,6 +4,9 @@ case "$1" in
     /usr/bin/respawn_retroarch.sh &
     ;;
   stop)
+    for KILLPID in `ps | grep 'retroarch' | awk ' { print $1;}'`; do
+      kill -9 $KILLPID;
+    done
     exit 1
     ;;
   *)

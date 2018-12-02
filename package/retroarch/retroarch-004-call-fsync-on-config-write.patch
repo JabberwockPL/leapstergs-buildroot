@@ -1,0 +1,16 @@
+diff -uNr retroarch-orig/libretro-common/file/config_file.c retroarch-patch/libretro-common/file/config_file.c
+--- retroarch-orig/libretro-common/file/config_file.c	2018-05-03 21:45:22.000000000 -0600
++++ retroarch-patch/libretro-common/file/config_file.c	2018-12-01 20:40:57.173889563 -0700
+@@ -872,8 +872,10 @@
+ 
+       config_file_dump(conf, file);
+ 
+-      if (file != stdout)
+-         fclose(file);
++      if (file != stdout) {
++        fsync(file);
++        fclose(file);
++      }
+       free(buf);
+    }
+    else

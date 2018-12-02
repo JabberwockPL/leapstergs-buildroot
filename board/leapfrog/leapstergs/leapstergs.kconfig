@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux/arm 2.6.37.4 Kernel Configuration
-# Sun Nov 18 10:08:17 2018
+# Sun Nov 25 22:07:28 2018
 #
 CONFIG_ARM=y
 CONFIG_SYS_SUPPORTS_APM_EMULATION=y
@@ -334,8 +334,8 @@ CONFIG_ALIGNMENT_TRAP=y
 #
 CONFIG_ZBOOT_ROM_TEXT=0x0
 CONFIG_ZBOOT_ROM_BSS=0x0
-CONFIG_CMDLINE="console=ttyS0,115200n8 root=ubi0_0 rw rootfstype=ubifs ubi.mtd=RFS ramdisk=24576 ubversion=4.3.2.686 loglevel=4"
-# CONFIG_CMDLINE_FORCE is not set
+CONFIG_CMDLINE="console=ttyS0,115200n8 root=ubi0_0 rw rootfstype=ubifs ubi.mtd=RFS ramdisk=24576 ubversion=4.3.2.686 loglevel=4 mem=112M"
+CONFIG_CMDLINE_FORCE=y
 # CONFIG_XIP_KERNEL is not set
 # CONFIG_KEXEC is not set
 # CONFIG_AUTO_ZRELADDR is not set

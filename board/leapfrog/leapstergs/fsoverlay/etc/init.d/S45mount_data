@@ -32,7 +32,7 @@ case "$1" in
 
 		echo "Unmounting Data partition."
 
-		if grep $MOUNT_POUNT /proc/mounts > /dev/null; then 
+		if grep $MOUNT_POINT /proc/mounts > /dev/null; then 
 			umount $MOUNT_POINT 
 			if [ $? != 0 ]; then
 				echo "Unmounting Data failed."
