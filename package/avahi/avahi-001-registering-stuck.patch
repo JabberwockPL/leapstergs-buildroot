@@ -1,0 +1,38 @@
+diff --git a/avahi-core/server.c b/avahi-core/server.c
+index 69a1d02..03d4fc1 100644
+--- a/avahi-core/server.c
++++ b/avahi-core/server.c
+@@ -1216,8 +1216,8 @@ static void register_browse_domain(AvahiServer *s) {
+ static void register_stuff(AvahiServer *s) {
+     assert(s);
+
+-    server_set_state(s, AVAHI_SERVER_REGISTERING);
+     s->n_host_rr_pending ++; /** Make sure that the state isn't changed tp AVAHI_SERVER_RUNNING too early */
++    server_set_state(s, AVAHI_SERVER_REGISTERING);
+
+     register_hinfo(s);
+     register_browse_domain(s);
+diff --git a/avahi-core/announce.c b/avahi-core/announce.c
+old mode 100644
+new mode 100755
+index ccdbf15..b0ce232
+--- a/avahi-core/announce.c
++++ b/avahi-core/announce.c
+@@ -35,8 +35,14 @@
+ #define AVAHI_PROBE_INTERVAL_MSEC 250
+ 
+ static void remove_announcer(AvahiServer *s, AvahiAnnouncer *a) {
++    AvahiEntry *e;
++
+     assert(s);
+     assert(a);
++    e = a->entry;
++
++    if (a->state == AVAHI_PROBING && e->group)
++        e->group->n_probing--;
+ 
+     if (a->time_event)
+         avahi_time_event_free(a->time_event);
+-- 
+1.7.10.4
+
